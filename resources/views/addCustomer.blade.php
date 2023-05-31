@@ -1,3 +1,8 @@
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
 @extends('dashboard')
 @section('content')
       <form action="addCustomer" method="POST">
@@ -58,18 +63,45 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Subscription Start Date</label>
-            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+            <input type="date" class="form-control" id="subscriptionStartDate" name="subscriptionStartDate" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Renewal Date</label>
-            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+            <input type="date" class="form-control" id="subscriptionStartDate" name="subscriptionStartDate" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Subscription</label>
-            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
-          </div>
+            <label class="form-label">Subscription</label><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">SIS/Billing</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">SIS+</label>
+        </div>
+        <br>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+            <label class="form-check-label" for="inlineCheckbox3">Play</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+            <label class="form-check-label" for="inlineCheckbox4">Shop</label>
+        </div>
+        <br>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+            <label class="form-check-label" for="inlineCheckbox5">Auto Integrate</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
+            <label class="form-check-label" for="inlineCheckbox6">Support</label>
+        </div>
+      <div>
         <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      </div>
+    </div>
+    </form>
 @endsection
 <script>
     function updatePostcode() {
@@ -258,6 +290,13 @@ function addOption(selectElement, value, text) {
   option.text = text;
   selectElement.add(option);
 }
-
-
 </script>
+<script>
+    flatpickr("#subscriptionStartDate");
+  </script>
+<style>
+    .form-check-inline {
+        display: inline-flex;
+        align-items: center;
+    }
+</style>
