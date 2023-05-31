@@ -52,7 +52,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Actions
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
