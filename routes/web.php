@@ -7,6 +7,8 @@ use App\Http\Controllers\addemailController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\deleteemailController;
 use App\Http\Controllers\headerController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\LoginController;
 
 Route::get('/', function () {
     return view('login');
@@ -42,3 +44,5 @@ Route::post('send-email', 'App\Http\Controllers\SendEmailController@send')->name
 
 Route::delete('email/{id}', [deleteemailController::class, 'destroy'])->name('email.delete');
 
+Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback']);
