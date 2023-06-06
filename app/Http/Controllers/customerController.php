@@ -3,28 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Customer;
 
-
-class customerController extends Controller
+class CustomerController extends Controller
 {
-    public function add(Request $request)
+    public function addCustomer(Request $request)
 {
-    // Validate the input data
-    $validatedData = $request->validate([
-        'email' => 'required',
+    $customerData = $request->only([
+        'name',
+        'address1',
+        'address2',
+        'state',
+        'postcode',
+        'pic',
+        'email',
+        'subscription_start_date',
+        'renewal_date',
+        'subscription',
     ]);
 
-    // Create a new instance of the model and fill it with the input data
-    $newData = new addemail();
-    $newData->fill($validatedData);
+    // Convert the subscription array to a string
+    $customerData['subscription'] = implode(',', $customerData['subscription']);
 
-    // Save the new data to the database
-    $newData->save();
+    // Create a new customer with the submitted data
+    $customer = Customer::create([
+        'name' => $customerData['name'],
+        'address1' => $customerData['address1'],
+        'address2' => $customerData['address2'],
+        'state' => $customerData['state'],
+        'postcode' => $customerData['postcode'],
+        'pic' => $customerData['pic'],
+        'email' => $customerData['email'],
+        'subscription_start_date' => $customerData['subscription_start_date'],
+        'renewal_date' => $customerData['renewal_date'],
+        'subscription' => $customerData['subscription'],
+    ]);
 
-    // Optionally, you can return a response or redirect the user
-    return redirect('/viewEmail')->with('success', 'Data added successfully!');
+    // Optionally, you can redirect the user to a success page
+    return redirect('/dashboard');
 }
-
-
-
 }

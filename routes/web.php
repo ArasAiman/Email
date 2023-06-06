@@ -2,6 +2,7 @@
 use App\Models\viewEmail;
 use App\Models\addEmail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\customerController;
 use App\Http\Controllers\viewemailController;
 use App\Http\Controllers\addemailController;
 use App\Http\Controllers\ConfigController;
@@ -17,6 +18,9 @@ Route::get('/', function () {
 Route::get('addCustomer', function () {
     return view('addCustomer');
 });
+
+Route::post('/addCustomer', [customerController::class, 'addCustomer']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

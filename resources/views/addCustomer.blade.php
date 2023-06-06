@@ -9,19 +9,19 @@
         @csrf
         <div class="mb-3">
           <label class="form-label">Customer Name</label>
-          <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+          <input type="text" class="form-control" name="name" aria-describedby="emailHelp" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Address 1</label>
-            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+            <input type="text" class="form-control" name="address1" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Address 2</label>
-            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+            <input type="text" class="form-control" name="address2" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label class="form-label">State</label>
-            <select class="form-select" id="state" aria-label="Default select example" onchange="updatePostcode()">
+            <select class="form-select" id="state"name="state" aria-label="Default select example" onchange="updatePostcode()">
                 <option selected>Choose State</option>
                 <option value="Johor">Johor</option>
                 <option value="Kedah">Kedah</option>
@@ -50,7 +50,7 @@
 
           <div class="mb-3">
             <label class="form-label">Person in Charge (PIC)</label>
-            <select class="form-select" aria-label="Default select example">
+            <select name="pic" id="pic" class="form-select" aria-label="Default select example">
             <option selected>Select Person in Charge (PIC)</option>
             <option value="1">PIC 1</option>
             <option value="2">PIC 2</option>
@@ -59,42 +59,42 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Customer Email</label>
-            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Subscription Start Date</label>
-            <input type="date" class="form-control" id="subscriptionStartDate" name="subscriptionStartDate" aria-describedby="emailHelp" required>
+            <input type="date" class="form-control" id="subscription_start_date" name="subscription_start_date" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Renewal Date</label>
-            <input type="date" class="form-control" id="subscriptionStartDate" name="subscriptionStartDate" aria-describedby="emailHelp" required>
+            <input type="date" class="form-control" id="renewal_date" name="renewal_date" aria-describedby="emailHelp" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Subscription</label><br>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="subscription[]" value="SIS/Billing">
             <label class="form-check-label" for="inlineCheckbox1">SIS/Billing</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="subscription[]" value="SIS+">
             <label class="form-check-label" for="inlineCheckbox2">SIS+</label>
         </div>
         <br>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="subscription[]" value="Play">
             <label class="form-check-label" for="inlineCheckbox3">Play</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="subscription[]" value="Shop">
             <label class="form-check-label" for="inlineCheckbox4">Shop</label>
         </div>
         <br>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="subscription[]" value="Auto Integrate">
             <label class="form-check-label" for="inlineCheckbox5">Auto Integrate</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="subscription[]" value="Support">
             <label class="form-check-label" for="inlineCheckbox6">Support</label>
         </div>
       <div>
