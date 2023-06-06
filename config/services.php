@@ -16,7 +16,7 @@ return [
     'google' => [
         'client_id' => '91908107627-82gajjaquga71hktuaa8f5gvidk4ossa.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => 'http://localhost:8000/login/google/callback',
+        'redirect' => 'http://127.0.0.1:8000/dashboard',
     ],
 
 
