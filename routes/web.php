@@ -10,6 +10,7 @@ use App\Http\Controllers\deleteemailController;
 use App\Http\Controllers\headerController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('login');
@@ -22,9 +23,7 @@ Route::get('addCustomer', function () {
 Route::post('/addCustomer', [customerController::class, 'addCustomer']);
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 Route::get('sendEmail', function () {
     return view('sendEmail');
