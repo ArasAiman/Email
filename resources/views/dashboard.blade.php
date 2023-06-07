@@ -67,8 +67,6 @@
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                         <a class="collapse-item" href="config">Configuration</a>
                         <a class="collapse-item" href="sendEmail">Send Email</a>
-                        <a class="collapse-item" href="addEmail">Add Email</a>
-                        <a class="collapse-item" href="viewEmail">Email List</a>
 
                     </div>
                 </div>
