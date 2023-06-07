@@ -18,22 +18,24 @@
             <select class="form-select form-select-sm multiple-select" aria-label=".form-select-sm example" name="to_email[]" id="multiple-checkboxes" multiple>
                 <?php
                 $con = mysqli_connect("localhost", "root", "", "blastemail");
-                $query = "SELECT * FROM viewemail";
+                $query = "SELECT DISTINCT email FROM customers"; // Use DISTINCT to retrieve unique email addresses
                 $query_run = mysqli_query($con, $query);
                 if (mysqli_num_rows($query_run) > 0) {
                     ?>
                     <option value="all" onclick="selectAllEmails()">Select All</option> <!-- Add onclick event -->
                     <?php
-                    foreach ($query_run as $rowemail) {
+                    while ($rowemail = mysqli_fetch_assoc($query_run)) {
                         ?>
-                        <option value="<?php echo $rowemail['id']; ?>"><?php echo $rowemail['email']; ?></option>
+                        <option value="<?php echo $rowemail['email']; ?>"><?php echo $rowemail['email']; ?></option>
                         <?php
                     }
                 } else {
-                    echo "No record found";
+                    echo "No records found";
                 }
                 ?>
             </select>
+
+
         </div>
 
 
