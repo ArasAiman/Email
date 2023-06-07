@@ -40,6 +40,25 @@ class CustomerController extends Controller
     ]);
 
     // Optionally, you can redirect the user to a success page
-    return redirect('/dashboard');
+    return redirect('/customerList');
 }
+public function customerList()
+{
+    $customers = Customer::all();
+
+    return view('customerList', compact('customers'));
+}
+public function destroy($id)
+    {
+        // Find the customer record by ID
+        $customer = Customer::findOrFail($id);
+
+        // Delete the customer record
+        $customer->delete();
+
+        // Redirect back to the customer list page
+        return redirect()->route('customers')->with('success', 'Customer deleted successfully');
+    }
+
+
 }

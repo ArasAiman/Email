@@ -51,3 +51,6 @@ Route::delete('email/{id}', [deleteemailController::class, 'destroy'])->name('em
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/customerList', [CustomerController::class, 'customerList'])->name('customers');
+Route::delete('/customerList/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
