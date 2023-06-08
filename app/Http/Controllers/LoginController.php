@@ -10,7 +10,10 @@ class LoginController extends Controller
 {
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')
+        ->scopes(['profile', 'email']) // Add any additional required scopes
+        ->redirect();
+
     }
 
     public function handleGoogleCallback()
@@ -26,10 +29,19 @@ class LoginController extends Controller
     } else {
         // Create a new user account
         $newUser = new User();
-        $newUser->name = explode('@', $user->getEmail())[0]; // Extract the email name
         $newUser->email = $user->getEmail();
         $newUser->google_id = $user->getId();
         // Set any additional fields you want to populate
+
+        // Fetch the user's name using the Google People API
+        $accessToken = $user->token;
+        $googleClient = new \Google_Client();
+        $googleClient->setAccessToken($accessToken);
+        $peopleService = new \Google_Service_People($googleClient);
+        $person = $peopleService->people->get('people/me', ['personFields' => 'names']);
+        $name = $person->getNames()[0]->getDisplayName();
+
+        $newUser->name = $name;
 
         $newUser->save();
 
@@ -40,6 +52,8 @@ class LoginController extends Controller
     // Redirect the user after login
     return redirect('/dashboard');
 }
+
+
 
     public function logout()
 {
