@@ -8,13 +8,14 @@
           <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-              <form>
+              <form id="login-form" method="POST" action="{{ route('login') }}">
+              @csrf
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
                   <label for="floatingInput">Email address</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                   <label for="floatingPassword">Password</label>
                 </div>
 
@@ -25,7 +26,8 @@
                   </label>
                 </div>
                 <div class="d-grid">
-                    <a href="" class="btn btn-primary btn-login text-uppercase fw-bold">Sign in</a>
+                    <a href="#" class="btn btn-primary btn-login text-uppercase fw-bold" onclick="event.preventDefault(); document.getElementById('login-form').submit();">Sign in</a>
+
                 </div>
 
                 <hr class="my-4">

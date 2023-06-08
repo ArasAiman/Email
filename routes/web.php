@@ -53,3 +53,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/customerList', [CustomerController::class, 'customerList'])->name('customers');
 Route::delete('/customerList/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/login', 'App\Http\Controllers\AuthController@login');
