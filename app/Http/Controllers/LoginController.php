@@ -14,32 +14,33 @@ class LoginController extends Controller
     }
 
     public function handleGoogleCallback()
-    {
-        $user = Socialite::driver('google')->user();
+{
+    $user = Socialite::driver('google')->user();
 
-        // Check if the user already exists in your database
-        $existingUser = User::where('email', $user->getEmail())->first();
+    // Check if the user already exists in your database
+    $existingUser = User::where('email', $user->getEmail())->first();
 
-        if ($existingUser) {
-            // Log in the existing user
-            Auth::login($existingUser);
-        } else {
-            // Create a new user account
-            $newUser = new User();
-            $newUser->name = $user->getName();
-            $newUser->email = $user->getEmail();
-            $newUser->google_id = $user->getId();
-            // Set any additional fields you want to populate
+    if ($existingUser) {
+        // Log in the existing user
+        Auth::login($existingUser);
+    } else {
+        // Create a new user account
+        $newUser = new User();
+        $newUser->name = explode('@', $user->getEmail())[0]; // Extract the email name
+        $newUser->email = $user->getEmail();
+        $newUser->google_id = $user->getId();
+        // Set any additional fields you want to populate
 
-            $newUser->save();
+        $newUser->save();
 
-            // Log in the new user
-            Auth::login($newUser);
-        }
-
-        // Redirect the user after login
-        return redirect('/dashboard');
+        // Log in the new user
+        Auth::login($newUser);
     }
+
+    // Redirect the user after login
+    return redirect('/dashboard');
+}
+
     public function logout()
 {
     Auth::logout();
