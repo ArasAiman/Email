@@ -25,7 +25,7 @@
                   </label>
                 </div>
                 <div class="d-grid">
-                    <a href="{{ route('dashboard') }}" class="btn btn-primary btn-login text-uppercase fw-bold">Sign in</a>
+                    <a href="" class="btn btn-primary btn-login text-uppercase fw-bold">Sign in</a>
                 </div>
 
                 <hr class="my-4">
