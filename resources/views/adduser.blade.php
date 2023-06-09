@@ -5,7 +5,7 @@
 
 @extends('dashboard')
 @section('content')
-      <form action="addCustomer" method="POST">
+      <form action="addUser" method="POST">
         @csrf
         <div class="mb-3">
           <label class="form-label">Name</label>
@@ -15,8 +15,8 @@
             <label class="form-label">Role</label>
             <select class="form-control" name="role" aria-describedby="emailHelp" required>
               <option value="" selected disabled>Select role</option>
-              <option value="active">Admin</option>
-              <option value="inactive">Staff</option>
+              <option value="Admin">Admin</option>
+              <option value="Staff">Staff</option>
             </select>
           </div>
 
@@ -29,6 +29,10 @@
             <label class="form-label">Email</label>
             <input type="text" class="form-control" name="email" aria-describedby="emailHelp" required>
           </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" required>
+        </div>
 
           <div class="mb-3">
             <label class="form-label">Status</label>

@@ -12,6 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('login');
@@ -64,4 +65,9 @@ Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
 Route::get('addUser', function () {
     return view('adduser');
+});
+Route::post('/addUser', [AuthController::class, 'store']);
+
+Route::get('userList', function () {
+    return view('userList');
 });
