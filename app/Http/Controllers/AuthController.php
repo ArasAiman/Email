@@ -54,5 +54,24 @@ public function login(Request $request)
     // Authentication failed, redirect back to login form with error message
     return redirect()->back()->withErrors(['Invalid credentials']);
 }
+public function userList()
+{
+    $users = User::all(); // Retrieve all users from the database
+
+    return view('userList', compact('users'));
+}
+
+public function destroy($id)
+{
+    // Find the user record by ID
+    $user = User::findOrFail($id);
+
+    // Delete the user record
+    $user->delete();
+
+    // Redirect back to the user list page
+    return redirect()->route('userList')->with('success', 'User deleted successfully');
+}
+
 
 }

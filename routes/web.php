@@ -71,3 +71,5 @@ Route::post('/addUser', [AuthController::class, 'store']);
 Route::get('userList', function () {
     return view('userList');
 });
+Route::get('/userList', [AuthController::class, 'userList']);
+Route::delete('/userList/{id}', [AuthController::class, 'destroy']);
