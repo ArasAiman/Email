@@ -11,6 +11,7 @@ use App\Http\Controllers\headerController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('login');
@@ -60,3 +61,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
+
+Route::get('addUser', function () {
+    return view('adduser');
+});
