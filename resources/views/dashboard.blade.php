@@ -74,37 +74,35 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer"
+                    aria-expanded="true" aria-controls="collapseCustomer">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Customer</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseCustomer" class="collapse" aria-labelledby="headingCustomer"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Utilities:</h6> --}}
                         <a class="collapse-item" href="addCustomer">Add Customer</a>
                         <a class="collapse-item" href="customerList">Customer List</a>
-
                     </div>
                 </div>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+                    aria-expanded="true" aria-controls="collapseUser">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>User</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Utilities:</h6> --}}
                         <a class="collapse-item" href="addUser">Add User</a>
                         <a class="collapse-item" href="userList">User List</a>
-
                     </div>
                 </div>
             </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
