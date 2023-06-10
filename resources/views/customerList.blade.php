@@ -1,5 +1,4 @@
-<!-- customerList.blade.php -->
-
+<title>Customer List</title>
 @extends('dashboard')
 
 @section('content')

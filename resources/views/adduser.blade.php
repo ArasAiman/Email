@@ -1,3 +1,4 @@
+<title>Add User</title>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -38,8 +39,8 @@
             <label class="form-label">Status</label>
             <select class="form-control" name="status" aria-describedby="emailHelp" required>
               <option value="" selected disabled>Select status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
             </select>
           </div>
 

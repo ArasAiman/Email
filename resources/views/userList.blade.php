@@ -1,4 +1,4 @@
-
+<title>User List</title>
 @extends('dashboard')
 
 @section('content')

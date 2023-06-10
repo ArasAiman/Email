@@ -1,3 +1,4 @@
+<title>Send Email</title>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -51,8 +52,21 @@
             <input type="file" class="form-control" id="inputGroupFile02" name="attachment">
         </div>
 
-        <button type="submit" class="btn btn-primary">Send Email</button>
+        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailSentModal" disabled>Send Email</button>
     </form>
+    <div class="modal fade" id="emailSentModal" tabindex="-1" aria-labelledby="emailSentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-success text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailSentModalLabel">Email Sent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Your email has been successfully sent.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -80,4 +94,28 @@
         }
     }
     </script>
+    <script>
+        $(document).ready(function() {
+            // Check if all required fields are filled
+            function checkRequiredFields() {
+                var name = $('#name').val();
+                var fromEmail = $('#fromemail').val();
+                var toEmail = $('#multiple-checkboxes').val();
+                var subject = $('#subject').val();
+                var message = $('#message').val();
+
+                if (name !== '' && fromEmail !== '' && toEmail.length > 0 && subject !== '' && message !== '') {
+                    $('button[type="submit"]').prop('disabled', false);
+                } else {
+                    $('button[type="submit"]').prop('disabled', true);
+                }
+            }
+
+            // Listen for changes in the required fields
+            $('#name, #fromemail, #multiple-checkboxes, #subject, #message').on('input', function() {
+                checkRequiredFields();
+            });
+        });
+    </script>
+
 @endsection
