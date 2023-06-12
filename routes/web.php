@@ -13,11 +13,15 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailController;
 
 Route::get('/', function () {
     return view('login');
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
 Route::get('addCustomer', function () {
     return view('addCustomer');
 });
@@ -45,7 +49,8 @@ Route::get('viewEmail',[viewemailController::class,'Show']);
 
 Route::post('addEmail',[addemailController::class, 'store']);
 
-Route::post('send-email', 'App\Http\Controllers\SendEmailController@send')->name('send.email');
+// Route::post('send-email', 'App\Http\Controllers\SendEmailController@send')->name('send.email');
+Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('send.email');
 
 Route::delete('email/{id}', [deleteemailController::class, 'destroy'])->name('email.delete');
 

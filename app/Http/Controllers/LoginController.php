@@ -60,6 +60,6 @@ class LoginController extends Controller
     Auth::logout();
 
     // Redirect the user to the login page or any other desired page
-    return redirect('/');
+    return redirect('home');
 }
 }

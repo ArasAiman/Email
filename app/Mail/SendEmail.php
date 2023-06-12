@@ -6,29 +6,29 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Http\Request;
 
-class SendEmail extends Mailable
+class SendEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $data;
-    public $attachmentPath;
+    public $name;
+    public $fromEmail;
+    public $subject;
+    public $message;
+    public $attachments;
 
     /**
      * Create a new message instance.
      *
-     * @param  array       $data
-     * @param  string|null $attachmentPath
      * @return void
      */
-    public function __construct(array $data, $attachmentPath = null)
+    public function __construct($name, $fromEmail, $subject, $message, $attachments)
     {
-        $this->data = $data;
-        $this->attachmentPath = $attachmentPath;
-
-        // Set the sender name in the email
-        $this->from($data['fromEmail'], $data['name']);
+        $this->name = $name;
+        $this->fromEmail = $fromEmail;
+        $this->subject = $subject;
+        $this->message = $message;
+        $this->attachments = $attachments;
     }
 
     /**
@@ -38,15 +38,9 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        $message = $this->view('emails.send-email')
-                        ->subject($this->data['subject'])
-                        ->with(['data' => $this->data]);
-
-        // Attach the file if attachment path exists
-        if ($this->attachmentPath) {
-            $message->attach($this->attachmentPath);
-        }
-
-        return $message;
+        return $this->view('emails.sendEmail')
+            ->subject($this->subject)
+            ->from($this->fromEmail, $this->name)
+            ->attach($this->attachments);
     }
 }
