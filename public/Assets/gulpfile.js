@@ -1,145 +1,98 @@
-"use strict";
+const path = require('path');
 
-// Load plugins
-const autoprefixer = require("gulp-autoprefixer");
-const browsersync = require("browser-sync").create();
-const cleanCSS = require("gulp-clean-css");
-const del = require("del");
-const gulp = require("gulp");
-const header = require("gulp-header");
-const merge = require("merge-stream");
-const plumber = require("gulp-plumber");
-const rename = require("gulp-rename");
-const sass = require("gulp-sass");
-const uglify = require("gulp-uglify");
+// Config
+// -------------------------------------------------------------------------------
 
-// Load package.json for banner
-const pkg = require('./package.json');
+const env = require('gulp-environment');
+process.env.NODE_ENV = env.current.name;
 
-// Set the banner content
-const banner = ['/*!\n',
-  ' * Start Bootstrap - <%= pkg.title %> v<%= pkg.version %> (<%= pkg.homepage %>)\n',
-  ' * Copyright 2013-' + (new Date()).getFullYear(), ' <%= pkg.author %>\n',
-  ' * Licensed under <%= pkg.license %> (https://github.com/StartBootstrap/<%= pkg.name %>/blob/master/LICENSE)\n',
-  ' */\n',
-  '\n'
-].join('');
+let serverPath;
+const conf = (() => {
+  const _conf = require('./build-config');
+  serverPath = _conf.base.serverPath;
+  templatePath = _conf.base.buildTemplatePath;
+  buildPath = _conf.base.buildPath;
+  return require('deepmerge').all([{}, _conf.base || {}, _conf[process.env.NODE_ENV] || {}]);
+})();
 
-// BrowserSync
-function browserSync(done) {
-  browsersync.init({
-    server: {
-      baseDir: "./"
-    },
-    port: 3000
+conf.distPath = path.resolve(__dirname, conf.distPath).replace(/\\/g, '/');
+
+// Modules
+// -------------------------------------------------------------------------------
+
+const { parallel, series, watch } = require('gulp');
+const del = require('del');
+const colors = require('ansi-colors');
+const browserSync = require('browser-sync').create();
+colors.enabled = require('color-support').hasBasic;
+
+// Utilities
+// -------------------------------------------------------------------------------
+
+function srcGlob(...src) {
+  return src.concat(conf.exclude.map(d => `!${d}/**/*`));
+}
+
+// Tasks
+// -------------------------------------------------------------------------------
+
+const buildTasks = require('./tasks/build')(conf, srcGlob);
+const prodTasks = require('./tasks/prod')(conf);
+
+// Clean build directory
+// -------------------------------------------------------------------------------
+
+const cleanTask = function () {
+  return del([conf.distPath, buildPath], {
+    force: true
   });
-  done();
-}
+};
 
-// BrowserSync reload
-function browserSyncReload(done) {
-  browsersync.reload();
-  done();
-}
+// Watch
+// -------------------------------------------------------------------------------
+const watchTask = function () {
+  watch(srcGlob('**/*.scss', '!fonts/**/*.scss'), buildTasks.css);
+  watch(srcGlob('fonts/**/*.scss'), parallel(buildTasks.css, buildTasks.fonts));
+  watch(srcGlob('**/*.@(js|es6)', '!*.js'), buildTasks.js);
+  // watch(srcGlob('**/*.png', '**/*.gif', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.swf'), copyTasks.copyAssets)
+};
 
-// Clean vendor
-function clean() {
-  return del(["./vendor/"]);
-}
+// Serve
+// -------------------------------------------------------------------------------
+const serveTasks = function () {
+  browserSync.init({
+    // ? You can change server path variable from build-config.js file
+    server: serverPath
+  });
+  watch([
+    // ? You can change add/remove files/folders watch paths in below array
+    'html/**/*.html',
+    'html-starter/**/*.html',
+    'assets/vendor/css/*.css',
+    'assets/vendor/css/rtl/*.css',
+    'assets/css/*.css',
+    'assets/js/*.js'
+  ]).on('change', browserSync.reload);
+};
 
-// Bring third party dependencies from node_modules into vendor directory
-function modules() {
-  // Bootstrap JS
-  var bootstrapJS = gulp.src('./node_modules/bootstrap/dist/js/*')
-    .pipe(gulp.dest('./vendor/bootstrap/js'));
-  // Bootstrap SCSS
-  var bootstrapSCSS = gulp.src('./node_modules/bootstrap/scss/**/*')
-    .pipe(gulp.dest('./vendor/bootstrap/scss'));
-  // ChartJS
-  var chartJS = gulp.src('./node_modules/chart.js/dist/*.js')
-    .pipe(gulp.dest('./vendor/chart.js'));
-  // dataTables
-  var dataTables = gulp.src([
-      './node_modules/datatables.net/js/*.js',
-      './node_modules/datatables.net-bs4/js/*.js',
-      './node_modules/datatables.net-bs4/css/*.css'
-    ])
-    .pipe(gulp.dest('./vendor/datatables'));
-  // Font Awesome
-  var fontAwesome = gulp.src('./node_modules/@fortawesome/**/*')
-    .pipe(gulp.dest('./vendor'));
-  // jQuery Easing
-  var jqueryEasing = gulp.src('./node_modules/jquery.easing/*.js')
-    .pipe(gulp.dest('./vendor/jquery-easing'));
-  // jQuery
-  var jquery = gulp.src([
-      './node_modules/jquery/dist/*',
-      '!./node_modules/jquery/dist/core.js'
-    ])
-    .pipe(gulp.dest('./vendor/jquery'));
-  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing);
-}
+const serveTask = parallel([serveTasks, watchTask]);
 
-// CSS task
-function css() {
-  return gulp
-    .src("./scss/**/*.scss")
-    .pipe(plumber())
-    .pipe(sass({
-      outputStyle: "expanded",
-      includePaths: "./node_modules",
-    }))
-    .on("error", sass.logError)
-    .pipe(autoprefixer({
-      cascade: false
-    }))
-    .pipe(header(banner, {
-      pkg: pkg
-    }))
-    .pipe(gulp.dest("./css"))
-    .pipe(rename({
-      suffix: ".min"
-    }))
-    .pipe(cleanCSS())
-    .pipe(gulp.dest("./css"))
-    .pipe(browsersync.stream());
-}
+// Build (Dev & Prod)
+// -------------------------------------------------------------------------------
 
-// JS task
-function js() {
-  return gulp
-    .src([
-      './js/*.js',
-      '!./js/*.min.js',
-    ])
-    .pipe(uglify())
-    .pipe(header(banner, {
-      pkg: pkg
-    }))
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(gulp.dest('./js'))
-    .pipe(browsersync.stream());
-}
+const buildTask = conf.cleanDist
+  ? series(cleanTask, env.current.name === 'production' ? [buildTasks.all, prodTasks.all] : buildTasks.all)
+  : series(env.current.name === 'production' ? [buildTasks.all, prodTasks.all] : buildTasks.all);
 
-// Watch files
-function watchFiles() {
-  gulp.watch("./scss/**/*", css);
-  gulp.watch(["./js/**/*", "!./js/**/*.min.js"], js);
-  gulp.watch("./**/*.html", browserSyncReload);
-}
-
-// Define complex tasks
-const vendor = gulp.series(clean, modules);
-const build = gulp.series(vendor, gulp.parallel(css, js));
-const watch = gulp.series(build, gulp.parallel(watchFiles, browserSync));
-
-// Export tasks
-exports.css = css;
-exports.js = js;
-exports.clean = clean;
-exports.vendor = vendor;
-exports.build = build;
-exports.watch = watch;
-exports.default = build;
+// Exports
+// -------------------------------------------------------------------------------
+module.exports = {
+  default: buildTask,
+  build: buildTask,
+  'build:js': buildTasks.js,
+  'build:css': buildTasks.css,
+  'build:fonts': buildTasks.fonts,
+  'build:copy': parallel([buildTasks.copy]),
+  watch: watchTask,
+  serve: serveTask
+};
