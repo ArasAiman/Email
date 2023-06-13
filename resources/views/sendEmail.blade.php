@@ -44,8 +44,8 @@
                     $query_run = mysqli_query($con, $query);
                     if (mysqli_num_rows($query_run) > 0) {
                         ?>
-                        <option value="all" onclick="selectAllEmails()">Select All</option> <!-- Add onclick event -->
-                        <?php
+<option onclick="selectAllEmails()">Select All</option>
+<?php
                         while ($rowemail = mysqli_fetch_assoc($query_run)) {
                             ?>
                             <option value="<?php echo $rowemail['email']; ?>"><?php echo $rowemail['email']; ?></option>

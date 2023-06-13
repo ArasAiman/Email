@@ -2,14 +2,12 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendEmail extends Mailable implements ShouldQueue
+class SendEmail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     public $name;
     public $fromEmail;
@@ -22,7 +20,7 @@ class SendEmail extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($name, $fromEmail, $subject, $message, $attachments)
+    public function __construct($name, $fromEmail, $subject, $message, $attachments = null)
     {
         $this->name = $name;
         $this->fromEmail = $fromEmail;
@@ -38,9 +36,14 @@ class SendEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->view('emails.sendEmail')
+        $email = $this->view('emails.sendEmail')
             ->subject($this->subject)
-            ->from($this->fromEmail, $this->name)
-            ->attach($this->attachments);
+            ->from($this->fromEmail, $this->name);
+
+        if ($this->attachments) {
+            $email->attach($this->attachments);
+        }
+
+        return $email;
     }
 }
