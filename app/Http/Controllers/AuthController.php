@@ -73,5 +73,37 @@ public function destroy($id)
     return redirect()->route('userList')->with('success', 'User deleted successfully');
 }
 
+public function editUser(Request $request)
+{
+    // Retrieve the form data
+    $name = $request->input('name');
+    $role = $request->input('role');
+    $designation = $request->input('designation');
+    $email = $request->input('email');
+    $password = $request->input('password');
+    $status = $request->input('status');
+
+    // Get the authenticated user
+    $user = Auth::user();
+
+    // Update the user's data
+    $user->name = $name;
+    $user->role = $role;
+    $user->designation = $designation;
+    $user->email = $email;
+
+    // Update the password if provided
+    if (!empty($password)) {
+        $user->password = Hash::make($password);
+    }
+
+    $user->status = $status;
+
+    // Save the updated user data
+    $user->save();
+
+    // Redirect the user to a relevant page after successful profile update
+    return redirect()->route('dashboard')->with('success', 'Profile updated successfully.');
+}
 
 }

@@ -77,3 +77,9 @@ Route::get('userList', function () {
 });
 Route::get('/userList', [AuthController::class, 'userList']);
 Route::delete('/userList/{id}', [AuthController::class, 'destroy']);
+
+Route::get('setting', function () {
+    return view('setting');
+});
+
+Route::post('editUser', [AuthController::class, 'editUser'])->name('editUser');

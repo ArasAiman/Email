@@ -18,7 +18,7 @@
                 <div class="input-group input-group-merge">
                   <span id="basic-icon-default-fullname2" class="input-group-text"
                     ><i class='bx bx-user'></i></i></span>
-                  <input type="text"class="form-control" name="name" name="name" placeholder="smtp.gmail.com"aria-label="John Doe"aria-describedby="basic-icon-default-fullname2"/>
+                  <input type="text"class="form-control" name="name" name="name" placeholder="Ali Bin Ahmad"aria-label="John Doe"aria-describedby="basic-icon-default-fullname2"/>
                 </div>
               </div>
               <div class="mb-3">
