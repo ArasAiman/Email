@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,29 +76,47 @@ public function destroy($id)
 
 public function editUser(Request $request)
 {
-    // Retrieve the form data
-    $name = $request->input('name');
-    $role = $request->input('role');
-    $designation = $request->input('designation');
-    $email = $request->input('email');
-    $password = $request->input('password');
-    $status = $request->input('status');
+    // Validate the form data
+    $validator = Validator::make($request->all(), [
+        'name' => 'nullable',
+        'role' => 'nullable',
+        'designation' => 'nullable',
+        'email' => 'nullable|email',
+        'password' => 'nullable|min:8',
+        'status' => 'nullable'
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
 
     // Get the authenticated user
     $user = Auth::user();
 
-    // Update the user's data
-    $user->name = $name;
-    $user->role = $role;
-    $user->designation = $designation;
-    $user->email = $email;
-
-    // Update the password if provided
-    if (!empty($password)) {
-        $user->password = Hash::make($password);
+    // Update the user's data if entered
+    if ($request->filled('name')) {
+        $user->name = $request->input('name');
     }
 
-    $user->status = $status;
+    if ($request->filled('role')) {
+        $user->role = $request->input('role');
+    }
+
+    if ($request->filled('designation')) {
+        $user->designation = $request->input('designation');
+    }
+
+    if ($request->filled('email')) {
+        $user->email = $request->input('email');
+    }
+
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->input('password'));
+    }
+
+    if ($request->filled('status')) {
+        $user->status = $request->input('status');
+    }
 
     // Save the updated user data
     $user->save();
