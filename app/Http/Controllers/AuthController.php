@@ -36,7 +36,7 @@ public function store(Request $request)
     ]);
 
     // Optionally, you can redirect the user to a success page
-    return redirect('/dashboard');
+    return redirect('/userList');
 }
 
 
