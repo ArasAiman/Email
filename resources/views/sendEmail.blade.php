@@ -102,15 +102,11 @@
   </form>
   <div class="modal fade" id="emailSentModal" tabindex="-1" aria-labelledby="emailSentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content bg-success text-white">
-            <div class="modal-header">
-                <h5 class="modal-title" id="emailSentModalLabel">Email Sent</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Your email has been successfully sent.</p>
-            </div>
-        </div>
+        <div class="alert alert-success alert-dismissible" role="alert">
+            Email sent!!!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
     </div>
 </div>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>

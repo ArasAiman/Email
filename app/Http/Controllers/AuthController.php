@@ -49,7 +49,7 @@ public function login(Request $request)
     if ($user && Hash::check($credentials['password'], $user->password)) {
         // Authentication passed, user is logged in
         Auth::login($user);
-        return redirect('/dashboard');
+        return redirect('/home');
     }
 
     // Authentication failed, redirect back to login form with error message
