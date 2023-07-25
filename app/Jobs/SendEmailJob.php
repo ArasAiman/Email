@@ -2,6 +2,10 @@
 
 namespace App\Jobs;
 
+// app/Jobs/SendEmailJob.php
+
+namespace App\Jobs;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,21 +22,21 @@ class SendEmailJob implements ShouldQueue
     protected $toEmail;
     protected $subject;
     protected $message;
-    protected $attachment;
+    protected $attachmentPath;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($name, $fromEmail, $toEmail, $subject, $message, $attachment)
+    public function __construct($name, $fromEmail, $toEmail, $subject, $message, $attachmentPath)
     {
         $this->name = $name;
         $this->fromEmail = $fromEmail;
         $this->toEmail = $toEmail;
         $this->subject = $subject;
         $this->message = $message;
-        $this->attachment = $attachment;
+        $this->attachmentPath = $attachmentPath;
     }
 
     /**
@@ -42,19 +46,7 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::send([], [], function ($mailMessage) {
-            $mailMessage->to($this->toEmail)
-                ->subject($this->subject)
-                ->setBody($this->message);
-
-            if ($this->attachment) {
-                $mailMessage->attach($this->attachment->getRealPath(), [
-                    'as' => $this->attachment->getClientOriginalName(),
-                    'mime' => $this->attachment->getMimeType(),
-                ]);
-            }
-
-            $mailMessage->from($this->fromEmail, $this->name);
-        });
+        $email = new \App\Mail\SendEmail($this->name, $this->fromEmail, $this->subject, $this->message, $this->attachmentPath);
+        Mail::to($this->toEmail)->send($email);
     }
 }

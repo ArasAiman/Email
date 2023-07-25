@@ -1,11 +1,12 @@
 <?php
 
+// app/Http/Controllers/SendEmailController.php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Queue;
 use App\Jobs\SendEmailJob;
 
 class SendEmailController extends Controller
@@ -27,9 +28,10 @@ class SendEmailController extends Controller
 
         foreach ($toEmails as $toEmail) {
             // Send email to each recipient using the queue
-            Queue::push(new SendEmailJob($name, $fromEmail, $toEmail, $subject, $message, $attachment));
+            SendEmailJob::dispatch($name, $fromEmail, $toEmail, $subject, $message, $attachment ? $attachment->getRealPath() : null);
         }
 
         return redirect()->back()->with('success', 'Emails have been sent.');
     }
 }
+

@@ -1,5 +1,7 @@
 <?php
 
+// app/Mail/SendEmail.php
+
 namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
@@ -13,20 +15,20 @@ class SendEmail extends Mailable
     public $fromEmail;
     public $subject;
     public $message;
-    public $attachments;
+    public $attachmentPath;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $fromEmail, $subject, $message, $attachments = null)
+    public function __construct($name, $fromEmail, $subject, $message, $attachmentPath = null)
     {
         $this->name = $name;
         $this->fromEmail = $fromEmail;
         $this->subject = $subject;
         $this->message = $message;
-        $this->attachments = $attachments;
+        $this->attachmentPath = $attachmentPath;
     }
 
     /**
@@ -40,10 +42,14 @@ class SendEmail extends Mailable
             ->subject($this->subject)
             ->from($this->fromEmail, $this->name);
 
-        if ($this->attachments) {
-            $email->attach($this->attachments);
+        if ($this->attachmentPath) {
+            $email->attach($this->attachmentPath, [
+                'as' => pathinfo($this->attachmentPath, PATHINFO_BASENAME),
+                'mime' => mime_content_type($this->attachmentPath),
+            ]);
         }
 
         return $email;
     }
 }
+
