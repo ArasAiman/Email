@@ -49,7 +49,7 @@
       <p>Please let us know if you have any questions or require further assistance.</p>
       <p>Thank you for your attention.</p>
       <p>Best regards,</p>
-      <p>Your Name</p>
+      <p>[Sender Name]</p>
     </div>
     <div class="footer">
       <p>© 2023 CTIE Sdn. Bhd. All rights reserved.</p>

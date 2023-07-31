@@ -50,7 +50,7 @@
       <p>We are currently reviewing applications and will be in touch if your qualifications match our requirements.</p>
       <p>Once again, thank you for considering a career with us.</p>
       <p>Best regards,</p>
-      <p>Your Name</p>
+      <p>[Sender Name]</p>
     </div>
     <div class="footer">
       <p>© 2023 CTIE Sdn. Bhd. All rights reserved.</p>

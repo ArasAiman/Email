@@ -93,6 +93,21 @@
                 <label for="formFileMultiple" class="form-label">Attachment</label>
                 <input class="form-control" type="file" name="attachment" id="attachment" multiple />
               </div>
+              <label for="formFileMultiple" class="form-label">Template</label>
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="template" id="template1" value="template1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Template 1
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="template" id="template2" value="template2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Template 2
+                </label>
+              </div>
+              <br>
               <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailSentModal">Send</button>
 
 
