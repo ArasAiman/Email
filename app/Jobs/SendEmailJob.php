@@ -41,23 +41,24 @@ class SendEmailJob implements ShouldQueue
      * @return void
      */
     public function handle()
-    {
-        Mail::send([], [], function ($message) {
-            $message->to($this->toEmail)
-                    ->from($this->fromEmail, $this->name) // Set the sender address and name
-                    ->subject($this->subject)
-                    ->setBody(
-                        "<h1>{$this->subject}</h1>" .
-                        "<p><strong>Name:</strong> {$this->name}</p>" .
-                        "<p><strong>From:</strong> {$this->fromEmail}</p>" .
-                        "<p><strong>Message:</strong> {$this->message}</p>",
-                        'text/html'
-                    );
+{
+    Mail::send([], [], function ($message) {
+        $message->to($this->toEmail)
+                ->from($this->fromEmail, $this->name) // Set the sender address and name
+                ->subject($this->subject)
+                ->setBody(
+                    "<h1>{$this->subject}</h1>" .
+                    "<p><strong>Name:</strong> {$this->name}</p>" .
+                    "<p><strong>From:</strong> {$this->fromEmail}</p>" .
+                    "<p><strong>Message:</strong> {$this->message}</p>",
+                    'text/html'
+                );
 
-            // Attach the file if available
-            if ($this->attachmentPath) {
-                $message->attach($this->attachmentPath);
-            }
-        });
-    }
+        // Attach the file if available
+        if ($this->attachmentPath) {
+            $message->attach(storage_path('app/' . $this->attachmentPath));
+        }
+    });
+}
+
 }
