@@ -34,4 +34,3 @@ class SendEmailController extends Controller
         return redirect()->back()->with('success', 'Emails have been sent.');
     }
 }
-

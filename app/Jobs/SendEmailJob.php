@@ -2,10 +2,6 @@
 
 namespace App\Jobs;
 
-// app/Jobs/SendEmailJob.php
-
-namespace App\Jobs;
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -46,7 +42,22 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $email = new \App\Mail\SendEmail($this->name, $this->fromEmail, $this->subject, $this->message, $this->attachmentPath);
-        Mail::to($this->toEmail)->send($email);
+        Mail::send([], [], function ($message) {
+            $message->to($this->toEmail)
+                    ->from($this->fromEmail, $this->name) // Set the sender address and name
+                    ->subject($this->subject)
+                    ->setBody(
+                        "<h1>{$this->subject}</h1>" .
+                        "<p><strong>Name:</strong> {$this->name}</p>" .
+                        "<p><strong>From:</strong> {$this->fromEmail}</p>" .
+                        "<p><strong>Message:</strong> {$this->message}</p>",
+                        'text/html'
+                    );
+
+            // Attach the file if available
+            if ($this->attachmentPath) {
+                $message->attach($this->attachmentPath);
+            }
+        });
     }
 }

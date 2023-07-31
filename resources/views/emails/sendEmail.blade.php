@@ -4,10 +4,9 @@
     <title>Email</title>
 </head>
 <body>
-    <h1>{{ $data['subject'] }}</h1>
-    <p><strong>Name:</strong> {{ $data['name'] }}</p>
-    <p><strong>From:</strong> {{ $data['fromEmail'] }}</p>
-    <p><strong>Message:</strong> {{ $data['message'] }}</p>
+    <h1>{{ $subject }}</h1>
+    <p><strong>Name:</strong> {{ $name }}</p>
+    <p><strong>From:</strong> {{ $fromEmail }}</p>
+    <p><strong>Message:</strong> {{ $message }}</p>
 </body>
 </html>
-
