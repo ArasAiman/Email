@@ -28,7 +28,7 @@ class SendEmailController extends Controller
 
     foreach ($toEmails as $toEmail) {
         // Move the uploaded file to the storage directory
-        $attachmentPath = $attachment ? $attachment->store('attachments') : null;
+        $attachmentPath = $attachment ? $attachment->storeAs('attachments', $attachment->getClientOriginalName()) : null;
 
         // Send email to each recipient using the queue
         SendEmailJob::dispatch($name, $fromEmail, $toEmail, $subject, $message, $attachmentPath);
