@@ -22,6 +22,10 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+
+Route::get('emailTemplate', function () {
+    return view('template');
+});
 Route::get('addCustomer', function () {
     return view('addCustomer');
 });
