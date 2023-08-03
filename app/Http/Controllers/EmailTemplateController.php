@@ -23,8 +23,10 @@ public function store(Request $request)
         'content' => $validatedData['email_template'],
     ]);
 
-    return view('template')->with('success', 'Template saved successfully.');
-}
+    // Fetch all saved email templates
+    $emailTemplates = EmailTemplate::all();
 
+    return view('template', compact('emailTemplates'))->with('success', 'Template saved successfully.');
+}
 
 }
