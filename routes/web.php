@@ -15,6 +15,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\EmailTemplateController;
+Route::get('/email_template/create', [EmailTemplateController::class, 'create'])->name('email_template.create');
+Route::post('/email_template', [EmailTemplateController::class, 'store'])->name('email_template.store');
 Route::get('/', function () {
     return view('login');
 });

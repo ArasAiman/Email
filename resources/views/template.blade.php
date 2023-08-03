@@ -5,6 +5,8 @@
         <div class="card mb-4">
           <div class="card-body">
             <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+            <form method="post" action="{{ route('email_template.store') }}">
+                @csrf
             <div class="mb-3">
                 <label class="form-label" for="basic-icon-default-company">Template Name </label>
                 <div class="input-group input-group-merge">
@@ -26,21 +28,22 @@
 
                 <script>
                     ClassicEditor
-                        .create( document.querySelector( '#email_template' ) )
-                        .then( editor => {
-                            console.log( 'Editor was initialized', editor );
-                        } )
-                        .catch( error => {
-                            console.error( 'Error initializing editor:', error );
-                        } );
+                        .create(document.querySelector('#email_template'))
+                        .then(editor => {
+                            console.log('Editor was initialized', editor);
+                        })
+                        .catch(error => {
+                            console.error('Error initializing editor:', error);
+                        });
                 </script>
             </div>
           </div>
         </div>
       </div>
-  </form>
   <div>
-    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailSentModal">Save Template</button>
-    <br>
+    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+    data-bs-target="#emailSentModal">Save Template</button>    <br>
 </div>
+</form>
+
 @endsection
