@@ -23,6 +23,8 @@ public function store(Request $request)
         'content' => $validatedData['email_template'],
     ]);
 
-    return redirect()->route('template.create')->with('success', 'Template saved successfully.');
+    return view('template')->with('success', 'Template saved successfully.');
 }
+
+
 }
