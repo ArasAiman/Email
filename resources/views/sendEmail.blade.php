@@ -93,19 +93,25 @@
                 <label for="formFileMultiple" class="form-label">Attachment</label>
                 <input class="form-control" type="file" name="attachment" id="attachment" multiple />
               </div>
-              <label for="formFileMultiple" class="form-label">Template</label>
 
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="template" id="template1" value="template1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Template 1
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="template" id="template2" value="template2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                  Template 2
-                </label>
+              <div class="mb-3">
+                <label for="templateSelect" class="form-label">Template</label>
+                <select name="template" id="templateSelect" class="form-select">
+                  <?php
+                    $con = mysqli_connect("localhost", "root", "", "blastemail");
+                    $query = "SELECT id, name FROM email_templates"; // Assuming your templates table has 'id' and 'name' columns
+                    $query_run = mysqli_query($con, $query);
+                    if (mysqli_num_rows($query_run) > 0) {
+                      while ($rowTemplate = mysqli_fetch_assoc($query_run)) {
+                        ?>
+                        <option value="<?php echo $rowTemplate['id']; ?>"><?php echo $rowTemplate['name']; ?></option>
+                        <?php
+                      }
+                    } else {
+                      echo "<option value=''>No templates found</option>";
+                    }
+                  ?>
+                </select>
               </div>
               <br>
               <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailSentModal">Send</button>
