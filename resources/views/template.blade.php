@@ -70,7 +70,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $template->name }}</h5>
-                                            <p class="card-text">{!! strip_tags($template->content) !!}</p>
+                                            <div>{!! $template->content !!}</div>
                                         </div>
                                     </div>
                                 </div>
