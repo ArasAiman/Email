@@ -46,35 +46,39 @@
 </div>
 </form>
 @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-@if(isset($emailTemplates) && $emailTemplates->count() > 0)
-    <div class="row mt-4">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Saved Email Templates</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        @foreach($emailTemplates as $template)
-                            <div class="col-md-4 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $template->name }}</h5>
-                                        <p class="card-text">{{ $template->content }}</p>
+    @php
+        $emailTemplates = \App\Models\EmailTemplate::all();
+    @endphp
+
+    @if($emailTemplates->count() > 0)
+        <div class="row mt-4">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Saved Email Templates</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach($emailTemplates as $template)
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $template->name }}</h5>
+                                            <p class="card-text">{{ $template->content }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
 
 @endsection
