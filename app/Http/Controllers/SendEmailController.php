@@ -18,15 +18,12 @@ class SendEmailController extends Controller
         $fromEmail = $request->input('fromemail');
         $toEmails = $request->input('to_email');
         $subject = $request->input('subject');
+        $message = $request->input('message'); // Get the message from the form input
         $attachment = $request->file('attachment');
 
         // Fetch the selected template from the database based on the template ID
         $templateId = $request->input('template');
         $template = EmailTemplate::find($templateId);
-
-        if (!$template) {
-            return redirect()->back()->with('error', 'Selected template not found.');
-        }
 
         // Check if "Select All" option is selected
         if (in_array('Select All', $toEmails)) {
@@ -39,10 +36,17 @@ class SendEmailController extends Controller
 
         // Send email to each recipient using the queue
         foreach ($recipientData as $email => $recipientName) {
-            // Replace placeholders in the template content with actual values
-            $message = $template->content;
-            $personalizedMessage = str_replace('[RecipientName]', $recipientName, $message);
-            $personalizedMessage = str_replace('[SenderName]', $name, $personalizedMessage);
+            if ($template) {
+                // Initialize the personalized message with the template's content
+                $personalizedMessage = $template->content;
+
+                // Replace placeholders in the template content with actual values
+                $personalizedMessage = str_replace('[RecipientName]', $recipientName, $personalizedMessage);
+                $personalizedMessage = str_replace('[SenderName]', $name, $personalizedMessage);
+            } else {
+                // Use the message from the form input if no template is selected
+                $personalizedMessage = $message;
+            }
 
             // Move the uploaded file to the storage directory
             $attachmentPath = $attachment ? $attachment->storeAs('attachments', $attachment->getClientOriginalName()) : null;

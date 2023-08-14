@@ -97,6 +97,7 @@
               <div class="mb-3">
                 <label for="templateSelect" class="form-label">Template</label>
                 <select name="template" id="templateSelect" class="form-select">
+                  <option value="" selected disabled>Select a template</option>
                   <?php
                     $con = mysqli_connect("localhost", "root", "", "blastemail");
                     $query = "SELECT id, name FROM email_templates"; // Assuming your templates table has 'id' and 'name' columns
@@ -113,6 +114,8 @@
                   ?>
                 </select>
               </div>
+
+
               <br>
               <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailSentModal">Send</button>
 
