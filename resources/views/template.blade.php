@@ -4,7 +4,6 @@
     <div class="col-xl">
         <div class="card mb-4">
             <div class="card-body">
-                <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
                 <form method="post" action="{{ route('email_template.store') }}">
                     @csrf
                     <div class="mb-3">
@@ -66,22 +65,23 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($emailTemplates as $template)
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ $template->name }}</h5>
-                <div>{!! $template->content !!}</div>
-                <form method="post" action="{{ route('email_template.destroy', $template->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger mt-2">Delete</button>
-                    <button type="submit" class="btn btn-warning mt-2">Edit</button>
-
-                </form>
-            </div>
-        </div>
-    </div>
-@endforeach
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $template->name }}</h5>
+                                        <div>{!! $template->content !!}</div>
+                                        <form method="post" action="{{ route('email_template.destroy', $template->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                                        </form>
+                                        <div>
+                                            <button type="button" class="btn btn-warning mt-2" onclick="populateTemplate('{{ $template->name }}', '{{ $template->content }}')">pop</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                         </div>
                     </div>
                 </div>
@@ -90,3 +90,39 @@
     @endif
 
 @endsection
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+<script>
+    var editor;
+
+    // Initialize CKEditor
+    ClassicEditor
+        .create(document.querySelector('#email_template'))
+        .then(newEditor => {
+            editor = newEditor;
+            console.log('Editor was initialized', editor);
+        })
+        .catch(error => {
+            console.error('Error initializing editor:', error);
+        });
+
+    function populateTemplate(templateName, templateContent) {
+        // Set template name
+        document.getElementById('templatename').value = templateName;
+
+        // Log template content for debugging
+        console.log('Template content:', templateContent);
+
+        // Set CKEditor content
+        if (editor) {
+            editor.setData(templateContent);
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
