@@ -75,6 +75,8 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                    <button type="submit" class="btn btn-warning mt-2">Edit</button>
+
                 </form>
             </div>
         </div>
