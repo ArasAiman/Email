@@ -1,3 +1,5 @@
+<title>Dashboard</title>
+
 @extends('dashboard')
 @section('content')
 <div class="row">
