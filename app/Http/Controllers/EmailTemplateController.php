@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 class EmailTemplateController extends Controller
 {
+    public function destroy($id)
+    {
+        $template = EmailTemplate::findOrFail($id);
+        $template->delete();
+
+        return redirect()->route('email_template.create')->with('success', 'Template deleted successfully.');
+    }
+
     public function create()
     {
         return view('template');

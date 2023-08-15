@@ -66,15 +66,20 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($emailTemplates as $template)
-                                <div class="col-md-4 mb-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $template->name }}</h5>
-                                            <div>{!! $template->content !!}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ $template->name }}</h5>
+                <div>{!! $template->content !!}</div>
+                <form method="post" action="{{ route('email_template.destroy', $template->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endforeach
                         </div>
                     </div>
                 </div>
