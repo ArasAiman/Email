@@ -217,9 +217,9 @@
                 </li>
               </ul>
             </li>
-            
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-            <li class="menu-item">
+
+            {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li> --}}
+            {{-- <li class="menu-item">
               <a
                 href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
                 target="_blank"
@@ -228,8 +228,8 @@
                 <i class="menu-icon tf-icons bx bx-support"></i>
                 <div data-i18n="Support">Support</div>
               </a>
-            </li>
-            <li class="menu-item">
+            </li> --}}
+            {{-- <li class="menu-item">
               <a
                 href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
                 target="_blank"
@@ -238,7 +238,7 @@
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Documentation">Documentation</div>
               </a>
-            </li>
+            </li> --}}
           </ul>
         </aside>
 
