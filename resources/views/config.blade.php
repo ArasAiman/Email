@@ -69,7 +69,7 @@
                   />
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">Send</button>
+              <button type="submit" class="btn btn-primary">Configure</button>
             </form>
           </div>
         </div>

@@ -171,8 +171,8 @@
                     <input class="form-check-input" type="checkbox" value="Support" id="inlineCheckbox6" name="subscription[]" />
                     <label class="form-check-label" for="inlineCheckbox6"> Support </label>
                   </div>
-                  <div>
-              <button type="submit" class="btn btn-primary">Send</button>
+                  <div><br>
+              <button type="submit" class="btn btn-primary">Add Customer</button>
                   </div>
             </form>
           </div>

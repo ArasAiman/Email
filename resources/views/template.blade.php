@@ -33,8 +33,8 @@
                                 });
                         </script>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailSentModal">Save Template</button>    <br>
+                    <div><br>
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailSentModal">Add Template</button>    <br>
                     </div>
                 </form>
             </div>
