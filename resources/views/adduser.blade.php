@@ -19,6 +19,33 @@
                   <input type="text"class="form-control" name="name" id="name" placeholder="Ali Bin Ahmad"aria-label="John Doe"aria-describedby="basic-icon-default-fullname2"/>
                 </div>
               </div>
+              @if ($errors->any())
+              <div class="modal fade show" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="errorModalLabel">Errors</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <script>
+                  window.onload = function () {
+                      $('#errorModal').modal('show');
+                  }
+              </script>
+          @endif
               <div class="mb-3">
                 <label class="form-label" for="basic-icon-default-fullname">Role</label>
                 <select id="defaultSelect" name="role" id="role" class="form-select multiple-select">

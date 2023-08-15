@@ -7,37 +7,43 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+
 class AuthController extends Controller
 {
 
 
-public function store(Request $request)
-{
-    $userData = $request->only([
-        'name',
-        'email',
-        'password',
-        'role',
-        'designation',
-        'status',
-    ]);
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'role' => 'required',
+            'designation' => 'required',
+            'status' => 'required',
+        ]);
 
-    // Hash the password
-    $userData['password'] = Hash::make($userData['password']);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-    // Create a new user with the submitted data
-    $user = User::create([
-        'name' => $userData['name'],
-        'email' => $userData['email'],
-        'password' => $userData['password'],
-        'role' => $userData['role'],
-        'designation' => $userData['designation'],
-        'status' => $userData['status'],
-    ]);
+        // Hash the password
+        $password = Hash::make($request->input('password'));
 
-    // Optionally, you can redirect the user to a success page
-    return redirect('/userList');
-}
+        // Create a new user with the submitted data
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $password,
+            'role' => $request->input('role'),
+            'designation' => $request->input('designation'),
+            'status' => $request->input('status'),
+        ]);
+
+        // Optionally, you can redirect the user to a success page
+        return redirect('/userList');
+    }
 
 
 public function login(Request $request)
