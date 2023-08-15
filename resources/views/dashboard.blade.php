@@ -187,12 +187,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="addCustomer" class="menu-link" target="_blank">
+                  <a href="addCustomer" class="menu-link" >
                     <div data-i18n="Basic">Add Customer</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="customerList" class="menu-link" target="_blank">
+                  <a href="customerList" class="menu-link" >
                     <div data-i18n="Basic">Customer List</div>
                   </a>
                 </li>
